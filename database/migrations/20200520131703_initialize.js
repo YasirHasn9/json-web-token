@@ -6,8 +6,26 @@ exports.up = async function(knex) {
       .notNullable()
       .unique();
   });
+  await knex.schema.createTable("users", user => {
+    user.increments("id");
+    user
+      .string("username", 128)
+      .notNullable()
+      .unique()
+      .index();
+
+    user.string("password", 225).notNullable();
+
+    user
+      .integer("role")
+      .unsigned()
+      .references("roles.id")
+      .onDelete("RESTRICT")
+      .onUpdate("CASCADE");
+  });
 };
 
 exports.down = async function(knex) {
+  await knex.schema.dropTableIfExists("users");
   await knex.schema.dropTableIfExists("roles");
 };
