@@ -6,7 +6,11 @@ module.exports = () => {
       message: "Invalid credentials"
     };
     try {
-      const token = req.headers.authorization;
+      // // now instead of setting the cookie manually
+      // const token = req.headers.authorization;
+
+      // we can use the cookie parser that helps with with parser the cookie
+      const token = req.cookies.token;
       if (!token) {
         return res.status(401).json(authError);
       }
