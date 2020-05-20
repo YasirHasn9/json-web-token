@@ -1,0 +1,30 @@
+{
+  "name": "json-web-token",
+  "version": "1.0.0",
+  "description": "Guided project for **Node Auth 2** Module.",
+  "main": "knexfile.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "knex": "^0.21.1",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YasirHasn9/json-web-token.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YasirHasn9/json-web-token/issues"
+  },
+  "homepage": "https://github.com/YasirHasn9/json-web-token#readme"
+}
