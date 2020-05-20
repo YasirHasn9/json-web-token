@@ -58,14 +58,18 @@ router.post("/login", async (req, res, next) => {
         userRole: "normal" // this is normally comes from the db
       };
       // 3 now we generate the token
-      const token = jwt.sign(tokenPayload, 
-        process.env.JWT_SECRET  /**to read this var from the .env we should enable
+      const token = jwt.sign(
+        tokenPayload,
+        process.env
+          .JWT_SECRET /**to read this var from the .env we should enable
         it in the package.json under the server */
-        );
+      );
+
+      res.cookie("token", token);
 
       res.status(201).json({
-        message: `Welcome ${user.username}`,
-        token
+        message: `Welcome ${user.username}`
+        // token
       });
     }
   } catch (err) {
