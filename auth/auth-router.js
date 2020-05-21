@@ -47,7 +47,9 @@ router.post("/login", async (req, res, next) => {
       userId: user.id,
       userRole: "normal"
     };
-    const secret = process.env.TOKEN_SECRET || "keep it secret , keep it safe";
+    // this is should not be public and of someone knows about it
+    // they will be able to change it , so this is should secret
+    const secret = process.env.TOKEN_SECRET;
     const token = jwt.sign(payload, secret);
     res.json({
       message: `Welcome ${user.username}!`,
