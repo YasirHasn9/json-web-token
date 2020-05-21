@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const Users = require("../users/users-models");
 
 router.post("/register", async (req, res, next) => {
@@ -40,8 +41,17 @@ router.post("/login", async (req, res, next) => {
     if (!passwordValid) {
       return res.status(401).json(authError);
     }
+
+    const payload = {
+      // this is public so we should be careful with what we put here
+      userId: user.id,
+      userRole: "normal"
+    };
+    const secret = process.env.TOKEN_SECRET || "keep it secret , keep it safe";
+    const token = jwt.sign(payload, secret);
     res.json({
-      message: `Welcome ${user.username}!`
+      message: `Welcome ${user.username}!`,
+      token
     });
   } catch (err) {
     next(err);
