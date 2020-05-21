@@ -21,4 +21,30 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
+router.post("/login", async (req, res, next) => {
+  const authError = {
+    message: "Invalid Credentials"
+  };
+  const { username, password } = req.body;
+
+  try {
+    const user = await Users.findBy({ username }).first();
+    if (!user) {
+      return res.status(401).json(authError);
+    }
+
+    // since bcrypt hashes generate different results due to the salting,
+    // we rely on the magic internals to compare hashes rather than doing it
+    // manually with "!=="
+    const passwordValid = await bcrypt.compare(password, user.password);
+    if (!passwordValid) {
+      return res.status(401).json(authError);
+    }
+    res.json({
+      message: `Welcome ${user.username}!`
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 module.exports = router;

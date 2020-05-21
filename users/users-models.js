@@ -3,11 +3,14 @@ const db = require("../database/config");
 module.exports = {
   find,
   add,
-  findById
+  findById,
+  findBy
 };
 
 async function find() {
-  return await db("users");
+  return await db("users")
+    .select("id", "username")
+    .orderBy("id");
 }
 
 async function add(user) {
@@ -24,3 +27,9 @@ async function findById(id) {
     .where({ id })
     .first();
 }
+
+function findBy(filter) {
+  return db("users").where(filter);
+}
+
+
