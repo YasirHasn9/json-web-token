@@ -51,9 +51,9 @@ router.post("/login", async (req, res, next) => {
     // they will be able to change it , so this is should secret
     const secret = process.env.TOKEN_SECRET;
     const token = jwt.sign(payload, secret);
+    res.cookie("token", token);
     res.json({
-      message: `Welcome ${user.username}!`,
-      token
+      message: `Welcome ${user.username}!`
     });
   } catch (err) {
     next(err);
